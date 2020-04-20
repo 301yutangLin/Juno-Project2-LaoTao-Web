@@ -147,6 +147,7 @@ myZomato.getCuisines = function(cuisineId) {
     cuisinesPromise.done(function(result) {
         const restaurantArray = result.restaurants;
         const numberOfResult = result.results_shown;
+        let ratingColorIndex = 0;
         restaurantArray.forEach(restaurant => {
             const name = restaurant.restaurant.name;
             const address = restaurant.restaurant.location.address;
@@ -167,7 +168,7 @@ myZomato.getCuisines = function(cuisineId) {
                             <p>Address: ${address}</p>
                             <p>Phone: ${phoneNumber}</p>
                         </div>
-                        <div class="rating">
+                        <div class="rating rating${ratingColorIndex}">
                             <p>${rating}</p>
                         </div>
                     </div>
@@ -175,8 +176,8 @@ myZomato.getCuisines = function(cuisineId) {
             `;
 
             $(".search-result").append(htmlToAppend);
-
-            $(".rating p").css("background-color" , `#${ratingColor}`);
+            $(`.rating${ratingColorIndex} p`).css("background-color", `#${ratingColor}`);
+            ratingColorIndex++;
         });
 
         let limitPerPage = 5;
@@ -204,17 +205,16 @@ myZomato.searchRestaurant = function(restaurantName) {
     });
 
     restaurantPromise.done(function(result) {
-        console.log(result);
         if(result.results_found>0){
             const restaurantArray = result.restaurants;
             const numberOfResult = result.results_shown;
+            let ratingColorIndex = 0;
             restaurantArray.forEach(restaurant => {
                 const name = restaurant.restaurant.name;
                 const address = restaurant.restaurant.location.address;
                 const phoneNumber = restaurant.restaurant.phone_numbers;
                 const rating = restaurant.restaurant.user_rating.aggregate_rating;
                 const ratingColor = restaurant.restaurant.user_rating.rating_color;
-                const votes = restaurant.restaurant.user_rating.votes;
                 const photo = restaurant.restaurant.photos ? restaurant.restaurant.photos[0].photo.url : restaurant.restaurant.thumb;
                 const photoCaption = restaurant.restaurant.photos ? restaurant.restaurant.photos[0].photo.caption : `restaurant image`;
                 const url = restaurant.restaurant.url;
@@ -229,7 +229,7 @@ myZomato.searchRestaurant = function(restaurantName) {
                                 <p>Address: ${address}</p>
                                 <p>Phone: ${phoneNumber}</p>
                             </div>
-                            <div class="rating">
+                            <div class="rating rating${ratingColorIndex}">
                                 <p>${rating}</p>
                             </div>
                         </div>
@@ -237,8 +237,8 @@ myZomato.searchRestaurant = function(restaurantName) {
                 `;
     
                 $(".search-result").append(htmlToAppend);
-    
-                $(".rating p").css("background-color" , `#${ratingColor}`);
+                $(`.rating${ratingColorIndex} p`).css("background-color", `#${ratingColor}`);
+                ratingColorIndex++;
             });
 
             let limitPerPage = 5;
