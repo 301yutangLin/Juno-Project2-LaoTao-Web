@@ -272,6 +272,8 @@ li {
 
 .search-result{
     padding-bottom: 50px;
+    display: flex;
+    flex-direction: column;
 }
 
 .restaurant-link {
@@ -324,6 +326,10 @@ li {
     text-transform: none;
 }
 
+.page-navigation {
+    align-self: flex-end;
+}
+
 .pagination a {
     margin:0;
     color: black;
@@ -333,9 +339,11 @@ li {
     transition: background-color .3s;
 }
   
-.pagination a.active {
+.active a {
     background-color: dodgerblue;
     color: white;
 }
   
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination li:hover:not(.active) {
+    background-color: #ddd;
+}

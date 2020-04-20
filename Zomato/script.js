@@ -58,8 +58,8 @@ myZomato.addPagination = function(numberOfRestaurant, limitPerPage) {
         const paginationHtml = `
             <nav class="page-navigation">
                 <ul class="pagination">
-                    <li><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="previous-item"><a href="#">Previous</a></li>
+                    <li class="page-item active"><a href="#">1</a></li>
 
                 </ul>
             </nav>
@@ -70,14 +70,61 @@ myZomato.addPagination = function(numberOfRestaurant, limitPerPage) {
         $(`.restaurant-link:gt(${limitPerPage - 1})`).hide();
         let numberOfPages = Math.round(numberOfRestaurant / limitPerPage);
         for(let i = 2; i <= numberOfPages; i++) {
-            console.log(i);
-            $(".pagination").append(`<li class="page-item"><a class="page-link" href="#">${i}</a></li>`);
+            $(".pagination").append(`<li class="page-item"><a href="#">${i}</a></li>`);
         }
-        $(".pagination").append(`<li><a class="page-link" href="#">Next</a></li>`);
+        $(".pagination").append(`<li class="next-item"><a href="#">Next</a></li>`);
 
-        $(".page-item").on("click", function() {
-            let currentPage = $(".page-item").index(this);
-            console.log(currentPage);
+        $(".pagination li.page-item").on("click", function() {
+            if($(this).hasClass("active")){
+                return false;
+            }else {
+                let currentPage = $(".page-item").index(this) + 1;
+                $(".pagination li").removeClass("active");
+                $(this).addClass("active");
+                $(".restaurant-link").hide();
+
+                
+                let grandTotal = limitPerPage * currentPage;
+                for(let i = grandTotal - limitPerPage; i < grandTotal; i++){
+                    $(`.restaurant-link:eq(${i})`).show();
+                }
+            }
+        });
+        
+        $(".next-item").on("click", function() {
+            let currentPage = $(".pagination li.active").index();
+            if(currentPage === numberOfPages) {
+                return false;
+            }else {
+                currentPage++;
+                $(".pagination li").removeClass("active");
+                $(".restaurant-link").hide();
+
+                let grandTotal = limitPerPage * currentPage;
+                for(let i = grandTotal - limitPerPage; i < grandTotal; i++){
+                    $(`.restaurant-link:eq(${i})`).show();
+                };
+
+                $(`.pagination li.page-item:eq(${currentPage - 1})`).addClass("active");
+            };
+        });
+
+        $(".previous-item").on("click", function() {
+            let currentPage = $(".pagination li.active").index();
+            if(currentPage === 1) {
+                return false;
+            }else {
+                currentPage--;
+                $(".pagination li").removeClass("active");
+                $(".restaurant-link").hide();
+
+                let grandTotal = limitPerPage * currentPage;
+                for(let i = grandTotal - limitPerPage; i < grandTotal; i++){
+                    $(`.restaurant-link:eq(${i})`).show();
+                }
+
+                $(`.pagination li.page-item:eq(${currentPage - 1})`).addClass("active");
+            }
         });
     }
 }
@@ -152,8 +199,6 @@ myZomato.searchRestaurant = function(restaurantName) {
             entity_id: myZomato.torontoCityId,
             entity_type: "city",
             q: restaurantName,
-            start: 0,
-            count: 10,
             sort: "rating"
         }
     });
@@ -162,6 +207,7 @@ myZomato.searchRestaurant = function(restaurantName) {
         console.log(result);
         if(result.results_found>0){
             const restaurantArray = result.restaurants;
+            const numberOfResult = result.results_shown;
             restaurantArray.forEach(restaurant => {
                 const name = restaurant.restaurant.name;
                 const address = restaurant.restaurant.location.address;
@@ -174,7 +220,7 @@ myZomato.searchRestaurant = function(restaurantName) {
                 const url = restaurant.restaurant.url;
     
                 const htmlToAppend = `
-                    <a href="${url}">
+                    <a href="${url}" class="restaurant-link">
                         <div class="restaurant-container">
                             <img src="${photo}" alt="${photoCaption}" class="restaurant-image">
                             
@@ -194,6 +240,11 @@ myZomato.searchRestaurant = function(restaurantName) {
     
                 $(".rating p").css("background-color" , `#${ratingColor}`);
             });
+
+            let limitPerPage = 5;
+            if(numberOfResult > limitPerPage) {
+                myZomato.addPagination(numberOfResult, limitPerPage);
+            };
         }else {
             const htmlToAppend = `
                 <h2>No result found</h2>
