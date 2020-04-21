@@ -145,6 +145,7 @@ myZomato.getCuisines = function(cuisineId) {
     });
 
     cuisinesPromise.done(function(result) {
+        console.log(result);
         const restaurantArray = result.restaurants;
         const numberOfResult = result.results_shown;
         let ratingColorIndex = 0;
@@ -154,14 +155,13 @@ myZomato.getCuisines = function(cuisineId) {
             const phoneNumber = restaurant.restaurant.phone_numbers;
             const rating = restaurant.restaurant.user_rating.aggregate_rating;
             const ratingColor = restaurant.restaurant.user_rating.rating_color;
-            const photo = restaurant.restaurant.photos ? restaurant.restaurant.photos[0].photo.url : restaurant.restaurant.thumb;
-            const photoCaption = restaurant.restaurant.photos ? restaurant.restaurant.photos[0].photo.caption : `restaurant image`;
+            const photo = restaurant.restaurant.featured_image;
             const url = restaurant.restaurant.url;
 
             const htmlToAppend = `
                 <a href="${url}" class="restaurant-link">
                     <div class="restaurant-container">
-                        <img src="${photo}" alt="${photoCaption}" class="restaurant-image">
+                        <img src="${photo}" alt="restaurant image" class="restaurant-image">
                         
                         <div class="restaurant-description">
                             <h3>${name}</h3>
@@ -215,14 +215,13 @@ myZomato.searchRestaurant = function(restaurantName) {
                 const phoneNumber = restaurant.restaurant.phone_numbers;
                 const rating = restaurant.restaurant.user_rating.aggregate_rating;
                 const ratingColor = restaurant.restaurant.user_rating.rating_color;
-                const photo = restaurant.restaurant.photos ? restaurant.restaurant.photos[0].photo.url : restaurant.restaurant.thumb;
-                const photoCaption = restaurant.restaurant.photos ? restaurant.restaurant.photos[0].photo.caption : `restaurant image`;
+                const photo = restaurant.restaurant.featured_image;
                 const url = restaurant.restaurant.url;
     
                 const htmlToAppend = `
                     <a href="${url}" class="restaurant-link">
                         <div class="restaurant-container">
-                            <img src="${photo}" alt="${photoCaption}" class="restaurant-image">
+                            <img src="${photo}" alt="restaurant image" class="restaurant-image">
                             
                             <div class="restaurant-description">
                                 <h3>${name}</h3>
