@@ -108,27 +108,12 @@ li {
 }
 
 .banner {
-    max-width: 100%;
     height: 40vh;
-    overflow: hidden;
     position: relative;
     width: 100%;
-}
-
-.banner img{
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-    border-radius: 7px;
-}
-
-.gradient-image{
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0) linear-gradient(9.64deg, rgba(0, 0, 0, 0.71) 13.22%, rgba(0, 0, 0, 0.05) 44.28%) repeat scroll 0% 0%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     border-radius: 7px;
 }
 
@@ -236,7 +221,7 @@ li {
 }
 
 .chinese-category{
-    background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.60)), url("./cuisine/chinese.jpg");
+    background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.20)), url("./cuisine/chinese.jpg");
 }
 
 .chinese-category:hover {
@@ -244,7 +229,7 @@ li {
 }
 
 .burger-category{
-    background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.60)), url("./cuisine/Burger.jpg");
+    background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.20)), url("./cuisine/Burger.jpg");
 }
 
 .burger-category:hover{
@@ -252,7 +237,7 @@ li {
 }
 
 .mexican-category {
-    background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.60)), url("./cuisine/mexican.jpg");
+    background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.20)), url("./cuisine/mexican.jpg");
 }
 
 .mexican-category:hover{
@@ -260,7 +245,7 @@ li {
 }
 
 .japanese-category {
-    background-image: linear-gradient(to bottom, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.60)), url("./cuisine/sushi.jpg");
+    background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.20)), url("./cuisine/sushi.jpg");
 }
 
 .japanese-category:hover {
@@ -346,4 +331,39 @@ li {
   
 .pagination li:hover:not(.active) {
     background-color: #ddd;
+}
+
+
+/* Fade In Effect */
+.fade-in {
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+    
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
 }

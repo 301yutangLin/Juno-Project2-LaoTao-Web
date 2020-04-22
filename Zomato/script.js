@@ -34,10 +34,8 @@ myZomato.getColletions = function() {
         myZomato.trendingUrl = result.collections[0].collection.url;
         const restaurantCount = result.collections[0].collection.res_count;
 
-        const htmlToAppend = `
-            <img src=${image} class="banner-image">
-        `;
-        $(".banner").append(htmlToAppend);
+        $(".banner").css("background-image", `linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.23)), url(${image})`);
+
         const titleToAppend = `
             <div class="banner-title">
                 <h1>${title}</h1>
@@ -159,7 +157,7 @@ myZomato.getCuisines = function(cuisineId) {
             const url = restaurant.restaurant.url;
 
             const htmlToAppend = `
-                <a href="${url}" class="restaurant-link">
+                <a href="${url}" class="restaurant-link fade-in">
                     <div class="restaurant-container">
                         <img src="${photo}" alt="restaurant image" class="restaurant-image">
                         
