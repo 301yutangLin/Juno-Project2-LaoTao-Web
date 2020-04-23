@@ -23,27 +23,42 @@ myZomato.getColletions = function() {
         dataType: 'json',
         method: 'GET',
         data: {
-            city_id: myZomato.torontoCityId
+            city_id: myZomato.torontoCityId,
+            count: 5
         }
     });
 
     collectionsPromise.done(function(result) {
-        const image = result.collections[0].collection.image_url;
-        const title = result.collections[0].collection.title;
-        const description = result.collections[0].collection.description;
-        myZomato.trendingUrl = result.collections[0].collection.url;
-        const restaurantCount = result.collections[0].collection.res_count;
+        const collectionArray = result.collections;
 
-        $(".banner").css("background-image", `linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.23)), url(${image})`);
+        for(let i = 0; i<collectionArray.length; i++) {
+            let image = collectionArray[i].collection.image_url;
+            let title = collectionArray[i].collection.title;
+            let description = collectionArray[i].collection.description;
+            myZomato.trendingUrl = collectionArray[i].collection.url;
+            let restaurantCount = collectionArray[i].collection.res_count;
+            
+            
+            let collectionHTML = `
+                <div class="test">
+                    <div class="collection-image${i}">
+                        <img src="${image}" class="banner"></img>
+                        <div class="banner-title">
+                            <h1>${title}</h1>
+                            <p>${description}</p>
+                            <p>Places: ${restaurantCount}</p>
+                        </div>
+                    </div>
+                </div
+            `;
 
-        const titleToAppend = `
-            <div class="banner-title">
-                <h1>${title}</h1>
-                <p>${description}</p>
-                <p>Places: ${restaurantCount}</p>
-            </div>
-        `;
-        $(".banner-container").append(titleToAppend);
+
+
+            $(".banner-container").append(collectionHTML);
+            console.log(image);
+            // $(".banner").css("background-image", `linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.23)), url(${image})`);
+
+        }
 
     }).fail(function(error){
         console.log(error);
