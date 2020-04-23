@@ -35,13 +35,15 @@ myZomato.getColletions = function() {
             let image = collectionArray[i].collection.image_url;
             let title = collectionArray[i].collection.title;
             let description = collectionArray[i].collection.description;
-            myZomato.trendingUrl = collectionArray[i].collection.url;
+            let trendingUrl = collectionArray[i].collection.url;
             let restaurantCount = collectionArray[i].collection.res_count;
             
             
             let collectionHTML = `
                 <div class="collection-image${i}">
-                    <div class="banner" style="background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.23)), url(${image})"></div>
+                    <a href="${trendingUrl}">
+                        <div class="banner" style="background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.23)), url(${image})"></div>
+                    </a>
                     <div class="banner-title">
                         <h1>${title}</h1>
                         <p>${description}</p>
@@ -51,15 +53,13 @@ myZomato.getColletions = function() {
             `;
 
             $(".banner-container").append(collectionHTML);
-
-
         };
 
         $(".banner-container").slick({
             dots: true,
             arrows: false,
             autoplay: true,
-            autoplaySpeed: 5000 
+            autoplaySpeed: 3000 
         });
 
     }).fail(function(error){
@@ -271,10 +271,6 @@ myZomato.searchRestaurant = function(restaurantName) {
 };
 
 myZomato.listeners = function() {
-    $(".banner-container").on("click", () =>{
-        window.location.href = myZomato.trendingUrl;
-    });
-
     $(".chinese-category").on("click", () => {
         myZomato.emptySearchResult();
         myZomato.getCuisines(25);
