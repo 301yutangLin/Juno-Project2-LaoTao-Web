@@ -40,25 +40,27 @@ myZomato.getColletions = function() {
             
             
             let collectionHTML = `
-                <div class="test">
-                    <div class="collection-image${i}">
-                        <img src="${image}" class="banner"></img>
-                        <div class="banner-title">
-                            <h1>${title}</h1>
-                            <p>${description}</p>
-                            <p>Places: ${restaurantCount}</p>
-                        </div>
+                <div class="collection-image${i}">
+                    <div class="banner" style="background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.23)), url(${image})"></div>
+                    <div class="banner-title">
+                        <h1>${title}</h1>
+                        <p>${description}</p>
+                        <p>Places: ${restaurantCount}</p>
                     </div>
-                </div
+                </div>
             `;
 
-
-
             $(".banner-container").append(collectionHTML);
-            console.log(image);
-            // $(".banner").css("background-image", `linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.23)), url(${image})`);
 
-        }
+
+        };
+
+        $(".banner-container").slick({
+            dots: true,
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 5000 
+        });
 
     }).fail(function(error){
         console.log(error);
