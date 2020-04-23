@@ -73,6 +73,11 @@ header {
     background-color: transparent;
 }
 
+.searchBtn:hover {
+    background-color: lightgrey;
+    color:white;
+}
+
 .header-list {
     display: flex;
     justify-content: space-between;
