@@ -2,7 +2,8 @@ const myZomato = {};
 
 myZomato.apiKey = "ed57e4f690ae84719a513bd21731b370";
 myZomato.torontoCityId = 89;
-myZomato.trendingUrl;
+myZomato.currentCategoryIndex = 0;
+
 
 
 myZomato.emptySearchResult = function() {
@@ -300,8 +301,57 @@ myZomato.listeners = function() {
 
 };
 
+myZomato.setCategoryButton = function() {
+    let num = 928;
+    if(myZomato.currentCategoryIndex === 0) {
+        $(".previousBtn").hide();
+    };
+
+    
+    $(".nextBtn").on("click", () => {
+        //length 928px in progress
+        myZomato.currentCategoryIndex+=1;
+        $('.category-list').animate({
+            scrollLeft: num * myZomato.currentCategoryIndex
+        }, 'slow');
+
+        if(myZomato.currentCategoryIndex === 2){
+            $(".nextBtn").prop('disabled', true);
+            $(".nextBtn").hide();
+        }
+
+        $(".previousBtn").show();
+        $(".previousBtn").prop('disabled', false);
+    });
+
+    $(".previousBtn").on("click", () => {
+        //length 928px in progress
+        myZomato.currentCategoryIndex-=1;
+
+        $('.category-list').animate({
+            scrollLeft: num * myZomato.currentCategoryIndex
+        }, 'slow');
+
+        if(myZomato.currentCategoryIndex === 0){
+            $(".previousBtn").prop('disabled', true);
+            $(".previousBtn").hide();
+        }
+
+        $(".nextBtn").show();
+        $(".nextBtn").prop('disabled', false);
+
+
+    });
+};
+
+myZomato.resetCategoryScrollView = function() {
+    $(".category-list").scrollLeft(0);
+}
+
 myZomato.init = function() {
     myZomato.getColletions();
+    myZomato.resetCategoryScrollView();
+    myZomato.setCategoryButton();
     myZomato.listeners();
 };
 

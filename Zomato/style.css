@@ -24,8 +24,8 @@ header {
 }
 
 .wrapper {
-    max-width: 1200px;
-    width: 70%;
+    max-width: 920px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -178,18 +178,39 @@ li {
     border-bottom: 2px solid #006CBB;
 }
 
-.category-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding-bottom: 30px;
+.button-wrapper {
+    width: 100%;
     position: relative;
+}
+
+.button-wrapper {
+    margin-bottom: 25px;
+}
+
+.category-container {
+    overflow: hidden;
+}
+
+.category-container ul {
+    display: flex;
+    list-style: outside none none;
+    padding: 0px;
+    overflow-x: hidden;
+    transition: transform 500ms cubic-bezier(1, 0, 0, 1) 0s;
+}
+
+.category {
+    margin-left: 8px;
+}
+
+.category-container ul li {
+    margin-bottom: 0px;
 }
 
 .category-container button {
     position: absolute;
     z-index: 10;
-    bottom: 50%;
+    top: 60px;
     border-radius: 50%;
     border: 1px solid lightgray;
     background: rgb(255, 255, 255);
@@ -197,12 +218,12 @@ li {
     padding: 10px 15px;
 }
 
-.category-container button:first-child {
-    left: -15px;
+.previousBtn {
+    left: -20px;
 }
 
-.category-container button:last-child {
-    right: -15px;
+.nextBtn {
+    right: -20px;
 }
 
 .category-container button:hover {
@@ -214,23 +235,21 @@ li {
 }
 
 .category-position p{
-    margin:0;
+    margin: 0;
     position: absolute;
-    bottom: 30px;
-    left: 30px;
+    bottom: 10px;
+    left: 10px;
     color: white;
     font-size: 2rem;
     letter-spacing: 1px;
     font-weight: 700;
-
 }
 
 .food-category {
-    background-size: 240px 175px;
-    width: 240px;
-    height: 175px;
+    background-size: 224px 165px;
+    width: 224px;
+    height: 165px;
     border-radius: 7px;
-    margin-bottom: 10px;
 }
 
 .chinese-category{
@@ -265,6 +284,21 @@ li {
     background-image: url("./cuisine/sushi.jpg");
 }
 
+.korean-category {
+    background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.20)), url("./cuisine/korean.jpg");
+}
+
+.korean-category:hover {
+    background-image: url("./cuisine/korean.jpg");
+}
+
+.bakery-category {
+    background-image: linear-gradient(to bottom left, rgba(245, 246, 252, 0), rgba(0, 0, 0, 0.20)), url("./cuisine/bakery.jpg");
+}
+
+.bakery-category:hover {
+    background-image: url("./cuisine/bakery.jpg");
+}
 
 /* Restaurant Search Result */
 
@@ -316,7 +350,8 @@ li {
 
 .rating p{
     padding: 5px 7px;
-    border-radius: 5px
+    border-radius: 5px;
+    color: white;
 }
 
 .pagination{
