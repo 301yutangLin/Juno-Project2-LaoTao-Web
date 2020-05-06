@@ -4,6 +4,13 @@ myZomato.apiKey = "ed57e4f690ae84719a513bd21731b370";
 myZomato.torontoCityId = 89;
 myZomato.currentCategoryIndex = 0;
 
+myZomato.categories = {
+    chinese: 25,
+    burger: 168,
+    japanese: 60,
+    mexican: 73 
+};
+
 myZomato.emptySearchResult = function() {
     $(".search-result").empty();
 };
@@ -261,24 +268,10 @@ myZomato.searchRestaurant = function(restaurantName) {
 };
 
 myZomato.listeners = function() {
-    $(".chinese-category").on("click", () => {
+    $(".food-category").on("click", function() {
+        const data = $(this).data("category");
         myZomato.emptySearchResult();
-        myZomato.getCuisines(25);
-    });
-
-    $(".burger-category").on("click", () => {
-        myZomato.emptySearchResult();
-        myZomato.getCuisines(168);
-    });
-
-    $(".japanese-category").on("click", () => {
-        myZomato.emptySearchResult();
-        myZomato.getCuisines(60);
-    });
-
-    $(".mexican-category").on("click", () => {
-        myZomato.emptySearchResult();
-        myZomato.getCuisines(73);
+        myZomato.getCuisines(myZomato.categories[data]);
     });
 
     $("form").on("submit", (event) => {
